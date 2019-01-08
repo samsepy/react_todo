@@ -14,6 +14,19 @@ class TodoList extends React.Component {
   }
 }
 
+class Form extends React.Component {
+  render() {
+    return (
+      <div>
+        <form>
+          <input name="content" type="text"/><br />
+          <button type="submit">追加</button>
+        </form>
+      </div>
+    )
+  }
+}
+
 class App extends React.Component {
   constructor() {
     super();
@@ -37,7 +50,10 @@ class App extends React.Component {
   }
   render () {
     return (
-      <TodoList todos={this.state.todos}/>
+      <div>
+        <TodoList todos={this.state.todos}/>
+        <Form />
+      </div>
     );
   }
 }
