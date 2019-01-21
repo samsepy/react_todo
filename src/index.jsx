@@ -7,7 +7,7 @@ class TodoList extends React.Component {
     return (
       <div>
         {todos.map(todo => (
-          <div key={todo.id}>{todo.content}</div>
+          <div key={todo.id}>{todo.desc}</div>
         ))}
       </div>
     );
@@ -17,9 +17,9 @@ class TodoList extends React.Component {
 class Form extends React.Component {
   render() {
     return (
-      <div>
-        <form>
-          <input name="content" type="text"/><br />
+      <div className="form">
+        <form onSubmit={this.props.handleSubmit}>
+          <input name="desc" type="text" placeholder="タイトル ※必須" defaultValue="reactの勉強" /><br/>
           <button type="submit">追加</button>
         </form>
       </div>
@@ -30,29 +30,40 @@ class Form extends React.Component {
 class App extends React.Component {
   constructor() {
     super();
+    const todos = [
+      {
+        id: 1,
+        desc: "todo1"
+      },
+      {
+        id: 2,
+        desc: "todo2"
+      },
+      {
+        id: 3,
+        desc: "todo3"
+      }
+    ]
     this.state = {
-      todos: [
-        {
-          id: 1,
-          content: "todo1"
-        },
-        {
-          id: 2,
-          content: "todo2"
-        },
-        {
-          id: 3,
-          content: "todo3"
-        },
-      ]
+      todos: todos
     }
+  }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const desc = e.target.desc.value;
+    const todos = this.state.todos.slice();
+    todos.push({
+      id: 3,
+      desc: desc
+    });
+    this.setState({todos});
   }
   render () {
     return (
       <div>
+        <Form handleSubmit={this.handleSubmit.bind(this)} />
         <TodoList todos={this.state.todos}/>
-        <Form />
       </div>
     );
   }
