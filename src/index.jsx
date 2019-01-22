@@ -7,7 +7,10 @@ class TodoList extends React.Component {
     return (
       <div>
         {todos.map(todo => (
-          <div key={todo.id}>{todo.desc}</div>
+          <div key={todo.id}>
+            {todo.desc}
+            <TodoDone />
+          </div>
         ))}
       </div>
     );
@@ -23,6 +26,14 @@ class Form extends React.Component {
           <button type="submit">追加</button>
         </form>
       </div>
+    )
+  }
+}
+
+class TodoDone extends React.Component {
+  render() {
+    return (
+      <button>完了</button>
     )
   }
 }
