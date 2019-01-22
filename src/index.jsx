@@ -7,10 +7,7 @@ class TodoList extends React.Component {
     return (
       <ul>
         {todos.map(todo => (
-          <li key={todo.id}>
-            {todo.done && todo.desc}
-            {todo.done && <a href="" onClick={(e) => {e.preventDefault(); this.props.setTodoStatus(todo)}}>完了</a>}
-          </li>
+          todo.done && <li key={todo.id}>{todo.desc}<a href="" onClick={(e) => {e.preventDefault(); this.props.setTodoStatus(todo)}}>完了</a></li>
         ))}
       </ul>
     );
