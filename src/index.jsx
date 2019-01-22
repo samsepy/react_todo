@@ -5,14 +5,14 @@ class TodoList extends React.Component {
   render() {
     const todos = this.props.todos
     return (
-      <div>
+      <ul>
         {todos.map(todo => (
-          <div key={todo.id}>
-            {todo.desc}
-            <TodoDone />
-          </div>
+          <li key={todo.id}>
+            {todo.done && todo.desc}
+            {todo.done && <a href="" onClick={(e) => {e.preventDefault(); this.props.setTodoStatus(todo)}}>完了</a>}
+          </li>
         ))}
-      </div>
+      </ul>
     );
   }
 }
@@ -44,19 +44,23 @@ class App extends React.Component {
     const todos = [
       {
         id: 1,
-        desc: "todo1"
+        desc: "todo1",
+        done: true
       },
       {
         id: 2,
-        desc: "todo2"
+        desc: "todo2",
+        done: true
       },
       {
         id: 3,
-        desc: "todo3"
+        desc: "todo3",
+        done: true
       }
     ]
     this.state = {
-      todos: todos
+      todos: todos,
+      countTodo: todos.length + 1,
     }
   }
 
@@ -64,17 +68,32 @@ class App extends React.Component {
     e.preventDefault();
     const desc = e.target.desc.value;
     const todos = this.state.todos.slice();
+    const countTodo = this.state.countTodo;
     todos.push({
-      id: 3,
-      desc: desc
+      id: countTodo,
+      desc: desc,
+      done: true
     });
     this.setState({todos});
+    this.setState({countTodo: countTodo + 1})
   }
+
+  setTodoStatus(clickTodo) {
+    const todos = this.state.todos.slice();
+    const todo = todos[clickTodo.id - 1];
+    todo.done = !todo.done;
+    todos[clickTodo.id - 1] = todo;
+    this.setState({ todos });
+  }
+
   render () {
     return (
       <div>
         <Form handleSubmit={this.handleSubmit.bind(this)} />
-        <TodoList todos={this.state.todos}/>
+        <TodoList
+          todos={this.state.todos}
+          setTodoStatus={this.setTodoStatus.bind(this)}
+        />
       </div>
     );
   }
