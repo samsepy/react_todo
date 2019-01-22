@@ -31,13 +31,6 @@ class Form extends React.Component {
   }
 }
 
-class TodoDone extends React.Component {
-  render() {
-    return (
-      <button>完了</button>
-    )
-  }
-}
 
 class App extends React.Component {
   constructor() {
