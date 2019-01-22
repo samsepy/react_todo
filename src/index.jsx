@@ -1,36 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
-
-class TodoList extends React.Component {
-  render() {
-    const todos = this.props.todos
-    return (
-      <ul>
-        {todos.map(todo => (
-          todo.done &&
-            <li key={todo.id}>
-              {todo.desc}
-              <a href="" onClick={(e) => {e.preventDefault(); this.props.setTodoStatus(todo)}}>完了</a>
-            </li>
-        ))}
-      </ul>
-    );
-  }
-}
-
-class Form extends React.Component {
-  render() {
-    return (
-      <div className="form">
-        <form onSubmit={this.props.handleSubmit}>
-          <input name="desc" type="text" placeholder="タイトル ※必須" defaultValue="reactの勉強" /><br/>
-          <button type="submit">追加</button>
-        </form>
-      </div>
-    )
-  }
-}
-
+import Form from './Form.jsx'
+import TodoList from './TodoList.jsx'
 
 class App extends React.Component {
   constructor() {
